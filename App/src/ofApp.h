@@ -17,6 +17,8 @@ public:
 	void setup();
 	void update();
 	void draw();
+	void openCamera();
+	void closeCamera();
 
 	void keyPressed(int key);
 	void keyReleased(int key);
@@ -31,6 +33,8 @@ public:
 	// Camera and Spout
 	ofVideoGrabber camera;
 	ofxSpout::Sender sender;
+	bool isCameraOpen = false;
+	ofFbo spoutFbo;
 	
 	// Asset Manager
 	AssetManager assets;

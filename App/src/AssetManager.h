@@ -13,6 +13,7 @@ public:
 	// Images
 	ofImage activeButton;
 	ofImage inactiveButton;
+	ofImage target;
 
 private:
 
