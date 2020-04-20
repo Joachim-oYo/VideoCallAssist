@@ -10,9 +10,18 @@ public:
 
 	// Fonts
 
-	// Images
-	ofImage activeButton;
-	ofImage inactiveButton;
+	// UI
+	ofImage background;
+	ofImage enabled;
+	ofImage disabled;
+	ofImage desktop;
+	ofImage mobile;
+	ofImage showVideoActive;
+	ofImage showVideoInactive;
+	ofImage unmuteActive;
+	ofImage unmuteInactive;
+
+	// Spout Cam
 	ofImage target;
 
 private:

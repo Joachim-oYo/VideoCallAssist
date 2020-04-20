@@ -8,17 +8,38 @@ void ofApp::setup() {
 	//camera.setup(640, 480);
 	openCamera();
 
-	// Initialise the Spout sender with a channel name
-	sender.init("VideoCallAssist");
-	spoutFbo.allocate(640, 480);
+	// Initialize the Spout sender with a channel name
+	spoutSender.init("VideoCallAssist");
+	spoutFbo.allocate(1280, 720);
 
 	// Load all of the assets
 	assets.load();
+
+	// Setup the buttons
+	setupButtons();
+
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
-	// Send the camera's texture once per frame
+	// Update the texture that will be sent over Spout
+	updateSpoutFbo();	
+	spoutSender.send(spoutFbo.getTexture());
+}
+
+//--------------------------------------------------------------
+void ofApp::draw() {
+	// Draw Background
+	assets.background.draw(0, 0);
+
+	// Draw Buttons
+	drawButtons();
+
+	// Draw Spout Cam Preview
+	spoutFbo.draw(ofGetWidth() - 1280/4 - 20, ofGetHeight() - 720/4 - 20, 1280/4, 720/4);
+}
+
+void ofApp::updateSpoutFbo() {
 	spoutFbo.begin();
 	if (isCameraOpen) {
 		camera.update();
@@ -35,17 +56,27 @@ void ofApp::update() {
 		ofPopStyle();
 	}
 	spoutFbo.end();
-	sender.send(spoutFbo.getTexture());
 }
 
-//--------------------------------------------------------------
-void ofApp::draw() {
-	spoutFbo.draw(0, 0, 320, 240);
+void ofApp::setupButtons() {
+	// Sets up all of the buttons
+	enableButton.setup("TOGGLE", "DISABLED", ofPoint(20, 77), assets.enabled, assets.disabled);
+	desktopButton.setup("TOGGLE", "DESKTOP", ofPoint(20, 156), assets.desktop, assets.mobile);
+	unmuteButton.setup("LATCHED", "OFF", ofPoint(20, 233), assets.unmuteInactive, assets.unmuteActive);
+	showVideoButton.setup("LATCHED", "OFF", ofPoint(131, 233), assets.showVideoInactive, assets.showVideoActive);
+}
+
+void ofApp::drawButtons() {
+	// Draws all of the buttons at their initialized positions
+	enableButton.draw();
+	desktopButton.draw();
+	unmuteButton.draw();
+	showVideoButton.draw();
 }
 
 void ofApp::openCamera() {
 	// open camera
-	if (camera.setup(640, 480))
+	if (camera.setup(1280, 720))
 		isCameraOpen = true;
 	else 
 		cout << "camera is busy" << endl;
@@ -59,11 +90,14 @@ void ofApp::closeCamera() {
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
-	if (isCameraOpen) {
-		closeCamera();
-	}
-	else {
-		openCamera();
+	// open or close the camera with the spacebar
+	if (key == 32) {
+		if (isCameraOpen) {
+			closeCamera();
+		}
+		else {
+			openCamera();
+		}
 	}
 }
 

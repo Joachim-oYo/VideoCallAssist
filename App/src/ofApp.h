@@ -3,6 +3,7 @@
 #include "ofxSpout.h"
 #include "Button.h"
 #include "AssetManager.h"
+#include "State.h"
 /*
 ofxCsv - not useful
 ofxEasing
@@ -17,6 +18,9 @@ public:
 	void setup();
 	void update();
 	void draw();
+	void updateSpoutFbo();
+	void setupButtons();
+	void drawButtons();
 	void openCamera();
 	void closeCamera();
 
@@ -32,10 +36,19 @@ public:
 
 	// Camera and Spout
 	ofVideoGrabber camera;
-	ofxSpout::Sender sender;
+	ofxSpout::Sender spoutSender;
 	bool isCameraOpen = false;
 	ofFbo spoutFbo;
 	
 	// Asset Manager
 	AssetManager assets;
+
+	// UI
+	Button enableButton;
+	Button desktopButton;
+	Button unmuteButton;
+	Button showVideoButton;
+
+	// State
+	State state;
 };

@@ -6,17 +6,20 @@ class Button : public ofBaseApp {
 
 public:
 	// Methods
-	void setup(ofPoint position, ofImage activeImg, ofImage inactiveImg);
-	void setup(int x, int y, ofImage activeImg, ofImage inactiveImg);
+	void setup(string type, string state, ofPoint position, ofImage imgA, ofImage imgB);
+	void setup(string type, string state, int x, int y, ofImage imgA, ofImage imgB);
+	string getState();
+	string getType();
 	void press();
 	void release();
 	void draw();
 
 	// State
-	bool isPressed;
-	ofPoint position;
-	ofImage activeImage;
-	ofImage inactiveImage;
+	string buttonState;
+	string buttonType;
+	ofPoint buttonPosition;
+	ofImage imageA;
+	ofImage imageB;
 
 private:
 

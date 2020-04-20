@@ -3,7 +3,7 @@
 
 //========================================================================
 int main( ){
-	ofSetupOpenGL(720,300,OF_WINDOW);			// <-------- setup the GL context
+	ofSetupOpenGL(600,300,OF_WINDOW);			// <-------- setup the GL context
 
 	//FreeConsole();
 
