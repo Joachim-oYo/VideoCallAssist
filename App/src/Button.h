@@ -10,6 +10,7 @@ public:
 	void setup(string type, string state, int x, int y, ofImage imgA, ofImage imgB);
 	string getState();
 	string getType();
+	bool wasHit(int x, int y);
 	void press();
 	void release();
 	void draw();
@@ -20,6 +21,8 @@ public:
 	ofPoint buttonPosition;
 	ofImage imageA;
 	ofImage imageB;
+	float hurtboxWidth;
+	float hurtboxHeight;
 
 private:
 

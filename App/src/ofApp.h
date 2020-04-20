@@ -18,9 +18,11 @@ public:
 	void setup();
 	void update();
 	void draw();
+	void updateState();
 	void updateSpoutFbo();
 	void setupButtons();
 	void drawButtons();
+	void attemptButtonPress(int x, int y);
 	void openCamera();
 	void closeCamera();
 

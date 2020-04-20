@@ -6,6 +6,9 @@ void Button::setup(string type, string state, ofPoint position, ofImage imgA, of
 	buttonType = type;
 	buttonState = state;
 	buttonPosition = position;
+
+	hurtboxWidth = imgA.getWidth();
+	hurtboxHeight = imgA.getHeight();
 }
 
 void Button::setup(string type, string state, int x, int y, ofImage activeImg, ofImage inactiveImg) {
@@ -20,8 +23,22 @@ string Button::getType() {
 	return buttonType;
 }
 
+bool Button::wasHit(int x, int y) {
+	bool hit = (((x - buttonPosition.x) <= hurtboxWidth && (x - buttonPosition.x) >= 0) && ((y - buttonPosition.y) <= hurtboxHeight && (y - buttonPosition.y) >= 0));
+	return hit;
+}
+
 void Button::press() {
-	//if (buttonState == "ENABLED")
+	if (buttonState == "ENABLED")
+		buttonState = "DISABLED";
+	else if (buttonState == "DISABLED")
+		buttonState = "ENABLED";
+	else if (buttonState == "DESKTOP")
+		buttonState = "MOBILE";
+	else if (buttonState == "MOBILE")
+		buttonState = "DESKTOP";
+	else if (buttonState == "OFF")
+		buttonState = "ON";
 }
 
 void Button::release() {

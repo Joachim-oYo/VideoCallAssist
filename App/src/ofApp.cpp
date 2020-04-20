@@ -39,6 +39,10 @@ void ofApp::draw() {
 	spoutFbo.draw(ofGetWidth() - 1280/4 - 20, ofGetHeight() - 720/4 - 20, 1280/4, 720/4);
 }
 
+void ofApp::updateState() {
+	
+}
+
 void ofApp::updateSpoutFbo() {
 	spoutFbo.begin();
 	if (isCameraOpen) {
@@ -88,6 +92,21 @@ void ofApp::closeCamera() {
 	isCameraOpen = false;
 }
 
+void ofApp::attemptButtonPress(int x, int y) {
+	if (enableButton.wasHit(x, y)) {
+		enableButton.press();
+	}
+	else if (desktopButton.wasHit(x, y)) {
+		desktopButton.press();
+	}
+	else if (unmuteButton.wasHit(x, y)) {
+		unmuteButton.press();
+	}
+	else if (showVideoButton.wasHit(x, y)) {
+		showVideoButton.press();
+	}
+}
+
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
 	// open or close the camera with the spacebar
@@ -123,7 +142,8 @@ void ofApp::mousePressed(int x, int y, int button) {
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button) {
-
+	// Check if any of the buttons have been pressed
+	attemptButtonPress(x, y);
 }
 
 //--------------------------------------------------------------
