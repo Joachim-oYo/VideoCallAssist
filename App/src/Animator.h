@@ -2,11 +2,11 @@
 
 #include "ofMain.h"
 
-class Button : public ofBaseApp {
+class Animator : public ofBaseApp {
 
 public:
 	// Methods
-	void setup(string type, string state, ofPoint position, ofImage imgA, ofImage imgB);
+	void setup(ofPoint position);
 	void setup(string type, string state, int x, int y, ofImage imgA, ofImage imgB);
 	string getState();
 	string getType();

@@ -1,6 +1,6 @@
-#include "Button.h"
+#include "Animator.h"
 
-void Button::setup(string type, string state, ofPoint position, ofImage imgA, ofImage imgB) {
+void Animator::setup(string type, string state, ofPoint position, ofImage imgA, ofImage imgB) {
 	imageA = imgA;
 	imageB = imgB;
 	buttonType = type;
@@ -11,24 +11,24 @@ void Button::setup(string type, string state, ofPoint position, ofImage imgA, of
 	hurtboxHeight = imgA.getHeight();
 }
 
-void Button::setup(string type, string state, int x, int y, ofImage activeImg, ofImage inactiveImg) {
+void Animator::setup(string type, string state, int x, int y, ofImage activeImg, ofImage inactiveImg) {
 	setup(type, state, ofPoint(x, y), activeImg, inactiveImg);
 }
 
-string Button::getState() {
+string Animator::getState() {
 	return buttonState;
 }
 
-string Button::getType() {
+string Animator::getType() {
 	return buttonType;
 }
 
-bool Button::wasHit(int x, int y) {
+bool Animator::wasHit(int x, int y) {
 	bool hit = (((x - buttonPosition.x) <= hurtboxWidth && (x - buttonPosition.x) >= 0) && ((y - buttonPosition.y) <= hurtboxHeight && (y - buttonPosition.y) >= 0));
 	return hit;
 }
 
-void Button::press() {
+void Animator::press() {
 	if (buttonState == "ENABLED")
 		buttonState = "DISABLED";
 	else if (buttonState == "DISABLED")
@@ -41,11 +41,11 @@ void Button::press() {
 		buttonState = "ON";
 }
 
-void Button::release() {
+void Animator::release() {
 
 }
 
-void Button::draw() {
+void Animator::draw() {
 	// Draw the button with the correct image based on its state
 	if (buttonState == "ENABLED")
 		imageA.draw(buttonPosition);

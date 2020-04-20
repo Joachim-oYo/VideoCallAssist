@@ -4,9 +4,7 @@
 void ofApp::setup() {
 	ofSetWindowTitle("VideoCallAssist");
 	ofSetFrameRate(60);
-
-	//camera.setup(640, 480);
-	openCamera();
+	camera.setVerbose(false);
 
 	// Initialize the Spout sender with a channel name
 	spoutSender.init("VideoCallAssist");
@@ -18,6 +16,10 @@ void ofApp::setup() {
 	// Setup the buttons
 	setupButtons();
 
+	// Attempt to start with camera enabled
+	openCamera();
+	if (isCameraOpen)
+		enableButton.press();
 }
 
 //--------------------------------------------------------------
@@ -94,7 +96,15 @@ void ofApp::closeCamera() {
 
 void ofApp::attemptButtonPress(int x, int y) {
 	if (enableButton.wasHit(x, y)) {
-		enableButton.press();
+		if (enableButton.buttonState == "ENABLED") {
+			closeCamera();
+			enableButton.press();
+		}
+		else if (enableButton.buttonState == "DISABLED") {
+			openCamera();
+			if (isCameraOpen)
+				enableButton.press();
+		}
 	}
 	else if (desktopButton.wasHit(x, y)) {
 		desktopButton.press();
@@ -109,15 +119,15 @@ void ofApp::attemptButtonPress(int x, int y) {
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
-	// open or close the camera with the spacebar
-	if (key == 32) {
-		if (isCameraOpen) {
-			closeCamera();
-		}
-		else {
-			openCamera();
-		}
-	}
+	//// open or close the camera with the spacebar
+	//if (key == 32) {
+	//	if (isCameraOpen) {
+	//		closeCamera();
+	//	}
+	//	else {
+	//		openCamera();
+	//	}
+	//}
 }
 
 //--------------------------------------------------------------
